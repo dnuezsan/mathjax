@@ -1,87 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- <script src="//d3js.org/d3.v3.min.js"></script> -->
-    <script src="js/script.js"></script>
-    <style>
 
-        svg {
-          font: 10px sans-serif;
-        }
-        
-        line.bin {
-          stroke: #000;
-          stroke-width: 3px;
-        }
-        
-        .axis path, .axis line {
-          fill: none;
-          stroke: #000;
-          shape-rendering: crispEdges;
-        }
-        
-        </style>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/stylesheet.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+  <script src="js/histograma.js"></script>
 </head>
+
 <body>
-    <script>
-        var margin = {top: 10, right: 20, bottom: 20, left: 60},
-            width = 960 - margin.left - margin.right,
-            height = 500 - margin.top - margin.bottom;
-        
-        var svg = d3.select("body").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-          .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-        
-        var x = d3.scale.linear()
-            .range([0, width]);
-        
-        var y = d3.scale.linear()
-            .range([height, 0]);
-        
-        d3.csv("income.csv", function(error, bins) {
-          if (error) throw error;
-        
-          // Coerce types.
-          bins.forEach(function(bin) {
-            bin.Income = +bin.Income;
-            bin.People = +bin.People;
-          });
-        
-          // Set the scale domains.
-          x.domain([0, d3.max(bins.map(function(d) { return d.Income; }))]).nice();
-          y.domain([0, d3.max(bins.map(function(d) { return d.People; }))]).nice();
-        
-          // Add the bins.
-          svg.selectAll(".bin")
-              .data(bins)
-            .enter().append("line")
-              .attr("class", "bin")
-              .attr("x1", function(d) { return x(d.Income); })
-              .attr("x2", function(d) { return x(d.Income); })
-              .attr("y1", height)
-              .attr("y2", function(d) { return y(d.People); });
-        
-          svg.append("g")
-              .attr("class", "x axis")
-              .attr("transform", "translate(0," + height + ")")
-              .call(d3.svg.axis()
-              .scale(x)
-              .orient("bottom"));
-        
-          svg.append("g")
-              .attr("class", "y axis")
-              .call(d3.svg.axis()
-              .scale(y)
-              .orient("left"));
-        
-        });
-        
-        </script>
+  <header>
+    <h1>El laboratorio</h1>
+    <nav>
+      <ul>
+        <li>
+          <a href="gravitacion.html">Ley de la Gravitación Universal</a>
+        </li>
+        <li>
+          <a href="bernouilli.html">Ley de la Presión Hidrodinámica de Daniel Bernoulli.</a>
+        </li>
+        <li>
+          <a href="faraday.html">Inducción Electromagnética de Michael Faraday</a>
+        </li>
+        <li>
+          <a href="termodinamica.html">Segunda Ley de la Termodinámica</a>
+        </li>
+        <li>
+          <a href="relatividad.html">Relación masa-energía de la retividad especial</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <canvas id="chart" width="600px" height="500px"></canvas>
+  <canvas id="chart2" width="600px" height="500px"></canvas>
+
+  <footer id="footer_histograma">
+
+  </footer>
 </body>
+
 </html>

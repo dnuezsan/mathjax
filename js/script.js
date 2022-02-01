@@ -15,8 +15,9 @@ function parsear(objeto){
     let data = []
 
     for (let i = 0; i < objeto.length; i++) {
-        labels.push('Viva Pamplona') //objeto[i].MetaData[3].Nombre);
-        data.push(42)
+        console.log(objeto[0].MetaData[3].Nombre)
+        labels.push(objeto[i].MetaData[3].Nombre)
+        data.push(objeto[i].Data[0].valor)
     }
 
     return [labels, data]
